@@ -1,0 +1,64 @@
+Задание 1
+
+Переход в директрию по абсолютному пути:
+cd /home/albert/Desktop/Test
+... по относительному:
+cd Desktop/Test/
+Переход в домашнюю пвпку:
+cd ~
+cd
+Переход на папку выше:
+cd ..
+
+Задание 2
+
+Создание файла:
+touch Test.txt
+
+Редактирование:
+nano Test.txt
+vim Test.txt
+echo "Inserted line" >> Test.txt
+
+Создание каталогов:
+mkdir Dir
+mkdir DirWithDir/
+mkdir DirWithDir/AnotherDir/
+
+Копирование файла и каталога:
+cp Test.txt Dir/
+cp Test.txt DirWithDir/AnotherDir/
+cp -r DirWithDir/ Dir/
+
+Задание 3
+
+-------*Терминал сервера*----------------------------
+Старт сервера:
+sudo service ssh start
+
+-------*Терминал клиента (PowerShell)*---------------
+Создание пары ключей (Сохранение в файл по умолчанию .ssh/id_rsa):
+ssh-keygen
+
+Копирование пубичного ключа id_rsa.pub на сервер в 
+файл с авторизованными ключами (автоматический способ не прошел):
+cat ~/.ssh/id_rsa.pub | ssh albert@192.168.1.73 "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+
+Подключение к серверу и отключение идентификации по паролю:
+ssh albert@192.168.1.73
+sudo vim /etc/ssh/ssh_config
+[далее меняем PasswordAuthentication на no]
+
+Перезапуск сервера, выход и подключение к серверу заново:
+sudo service ssh restart
+exit
+ssh albert@192.168.1.73 // пароль более не требуется
+
+Проверка лога:
+sudo service ssh status
+>>> ...
+>>> Accepted publickey for albert from 192.168.1.64 port 52634 ssh2: publickey for albert from 192.168.1.64 port 52634 ssh2: RSA SHA256...
+>>> ...
+
+
+
